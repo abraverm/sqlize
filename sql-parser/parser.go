@@ -24,6 +24,8 @@ func (p *Parser) Parser(sql string) error {
 	switch p.dialect {
 	case sql_templates.PostgresDialect:
 		return p.ParserPostgresql(sql)
+  case sql_templates.SqliteDialect:
+		return p.ParserSqlite(sql)
 	default:
 		// TODO: mysql parser is default for other dialects
 		return p.ParserMysql(sql)

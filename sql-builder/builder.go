@@ -385,15 +385,18 @@ func (s SqlBuilder) parseStruct(tableName, prefix string, obj interface{}) ([]st
 		}
 
 		if at.IsAutoIncr {
-			if s.sql.IsPostgres() {
+			switch s.dialect {
+			case sql_templates.SqliteDialect:
+				col = append(col, s.sql.PrimaryOption(), s.sql.AutoIncrementOption())
+			case sql_templates.PostgresDialect:
 				col = []string{col[0], s.sql.AutoIncrementOption()}
-			} else {
+			default:
 				col = append(col, s.sql.AutoIncrementOption())
 			}
 		}
 
 		// primary key attribute appended after field
-		if at.IsPk && len(pkFields) <= 1 {
+		if at.IsPk && len(pkFields) <= 1 && !s.sql.IsSqlite() {
 			col = append(col, s.sql.PrimaryOption())
 		}
 

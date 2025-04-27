@@ -19,7 +19,8 @@ func (s Sql) AutoIncrementOption() string {
 	switch s.dialect {
 	case PostgresDialect:
 		return s.apply("SERIAL")
-
+	case SqliteDialect:
+		return s.apply("AUTOINCREMENT")
 	default:
 		// TODO: mysql template is default for other dialects
 		return s.apply("AUTO_INCREMENT")

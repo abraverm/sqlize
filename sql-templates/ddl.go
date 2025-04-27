@@ -58,7 +58,7 @@ func (s Sql) IsLowercase() bool {
 
 // CreateTableStm ...
 func (s Sql) CreateTableStm() string {
-	return s.apply("CREATE TABLE %s (\n%s\n)%s;")
+	return s.apply("CREATE TABLE IF NOT EXISTS %s (\n%s\n)%s;")
 }
 
 // DropTableStm ...

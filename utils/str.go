@@ -97,7 +97,7 @@ func EscapeSqlName(dialect sql_templates.SqlDialect, name string) string {
 	}
 
 	escapeChar := "`"
-	if dialect == sql_templates.PostgresDialect {
+	if dialect == sql_templates.PostgresDialect || dialect == sql_templates.SqliteDialect {
 		escapeChar = "\""
 	}
 
